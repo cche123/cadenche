@@ -1,0 +1,311 @@
+:root {
+    --bg-color: #121212;
+    /* Dark charcoal close to black */
+    --text-color: #fdfcf8;
+    --cursor-color: #4b11a8;
+    /* Darker purple */
+    --secondary-text: #aaa;
+    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+:root.light-mode {
+    --bg-color: #Fdfcf8;
+    /* Beige/White tone */
+    --text-color: #1a1a1a;
+    --cursor-color: #4b11a8;
+    /* Consistent darker purple */
+    --secondary-text: #555;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Utility to prevent transitions on page load */
+.no-transitions * {
+    -webkit-transition: none !important;
+    -moz-transition: none !important;
+    -ms-transition: none !important;
+    -o-transition: none !important;
+    transition: none !important;
+}
+
+@media (pointer: fine) {
+    * {
+        cursor: none;
+        /* Hide default cursor only on devices with a mouse/trackpad */
+    }
+}
+
+@media (pointer: coarse) {
+    #cursor {
+        display: none;
+    }
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: max(32px, env(safe-area-inset-top, 0px)) max(22px, env(safe-area-inset-right, 0px)) max(32px, env(safe-area-inset-bottom, 0px)) max(22px, env(safe-area-inset-left, 0px));
+    }
+
+    header {
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        padding-top: 48px;
+        margin-bottom: 24px;
+        gap: 16px;
+    }
+
+    nav {
+        gap: 14px;
+    }
+
+    footer {
+        margin-top: 24px;
+    }
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+    hyphens: none;
+    -webkit-hyphens: none;
+    overflow-x: hidden;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: auto;
+    padding: max(40px, env(safe-area-inset-top, 0px)) max(40px, env(safe-area-inset-right, 0px)) max(40px, env(safe-area-inset-bottom, 0px)) max(40px, env(safe-area-inset-left, 0px));
+    line-height: 1.6;
+    hyphens: none;
+    -webkit-hyphens: none;
+    /* Optimize rendering */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+/* Custom Cursor */
+#cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 11px;
+    /* Slightly smaller */
+    height: 11px;
+    background-color: var(--cursor-color);
+    /* Filled */
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0;
+    /* Hidden by default */
+    transition: opacity 0.2s ease;
+    /* Smooth fade in */
+    will-change: transform;
+    /* Optimize for animations */
+    transform: translate3d(0, 0, 0) translate(-50%, -50%);
+    /* Hardware acceleration */
+}
+
+/* Header — same row layout on every viewport (no mobile-specific overrides) */
+header {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    padding-top: 100px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    gap: 16px;
+}
+
+h1 {
+    font-size: 20px;
+    /* Reduced from 24px */
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+nav {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    flex-shrink: 0;
+    gap: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--secondary-text);
+    margin-left: 0;
+    font-size: 13px;
+    /* Reduced from 16px */
+    transition: color 0.2s ease;
+    display: flex;
+    align-items: center;
+    position: relative;
+    will-change: color;
+    /* Optimize color transitions */
+}
+
+nav a:hover {
+    color: var(--text-color);
+}
+
+nav a svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+}
+
+/* Tooltip Styles */
+[data-tooltip] {
+    position: relative;
+}
+
+[data-tooltip]::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    /* Slide up effect */
+    background-color: transparent;
+    color: var(--text-color);
+    padding-bottom: 8px;
+    /* Spacing from icon */
+    font-size: 11px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    text-transform: lowercase;
+    font-weight: 500;
+}
+
+[data-tooltip]:hover::after {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Main Content */
+main {
+    max-width: 700px;
+    margin: 0 auto;
+    width: 100%;
+    display: block;
+    hyphens: none;
+    -webkit-hyphens: none;
+}
+
+p {
+    margin-bottom: 16px;
+    /* Reduced from 24px */
+    font-size: 15px;
+    /* Reduced from 18px */
+    color: var(--text-color);
+    overflow-wrap: normal;
+    word-break: normal;
+    hyphens: none;
+    -webkit-hyphens: none;
+}
+
+/* Footer — same row on every viewport */
+footer {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-top: 40px;
+    padding-bottom: 40px;
+    color: var(--secondary-text);
+    font-size: 13px;
+    /* Reduced from 14px */
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    hyphens: none;
+    -webkit-hyphens: none;
+}
+
+.theme-toggle {
+    background: transparent;
+    border: 1px solid var(--secondary-text);
+    color: var(--secondary-text);
+    padding: 3px 8px;
+    font-family: inherit;
+    font-size: 12px;
+    text-transform: lowercase;
+    transition: all 0.2s ease;
+    cursor: none;
+    border-radius: 6px;
+}
+
+.theme-toggle:hover {
+    color: var(--text-color);
+    border-color: var(--text-color);
+}
+
+.location span {
+    transition: color 0.2s ease;
+    will-change: color;
+    /* Optimize color transitions */
+}
+
+.location span:hover {
+    color: var(--text-color);
+}
+
+.location-icon {
+    margin-right: 5px;
+    font-style: normal;
+}
+
+.subtle-link {
+    color: inherit;
+    text-decoration: none;
+    font-weight: 500;
+    cursor: none;
+    transition: text-shadow 0.3s ease;
+    will-change: text-shadow;
+    hyphens: none;
+    -webkit-hyphens: none;
+}
+
+/* More prominent glow effect */
+body .subtle-link {
+    text-shadow: 0 0 10px rgba(253, 252, 248, 0.4);
+}
+
+:root.light-mode .subtle-link {
+    text-shadow: 0 0 10px rgba(26, 26, 26, 0.3);
+}
+
+.subtle-link:hover {
+    text-decoration: underline;
+    text-shadow: 0 0 15px rgba(253, 252, 248, 0.6);
+}
+
+:root.light-mode .subtle-link:hover {
+    text-shadow: 0 0 15px rgba(26, 26, 26, 0.45);
+}
