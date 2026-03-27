@@ -6,25 +6,27 @@ document.addEventListener('DOMContentLoaded', () => {
     let rafId = null;
 
     function updateCursor() {
-        cursor.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
+        cursor.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
         rafId = null;
     }
 
     document.addEventListener('mousemove', (e) => {
         mouseX = e.clientX;
         mouseY = e.clientY;
-        cursor.style.opacity = '1';
+        
+        // Use a small delay or direct update if RAF feels laggy, 
+        // but RAF is generally best for avoiding stutter.
         if (!rafId) {
             rafId = requestAnimationFrame(updateCursor);
         }
-    });
+        
+        if (cursor.style.opacity !== '1') {
+            cursor.style.opacity = '1';
+        }
+    }, { passive: true });
 
     document.addEventListener('mouseleave', () => {
         cursor.style.opacity = '0';
-        if (rafId) {
-            cancelAnimationFrame(rafId);
-            rafId = null;
-        }
     });
 
     // ─── Favicon ─────────────────────────────────────────────────────────────
@@ -94,4 +96,3 @@ document.addEventListener('DOMContentLoaded', () => {
     setInterval(updateTime, 1000);
     updateTime();
 });
-
