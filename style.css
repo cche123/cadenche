@@ -114,8 +114,9 @@ body {
     z-index: 9999;
     opacity: 0;
     /* No transition on opacity for more responsive feel when it appears/disappears */
-    will-change: transform;
-    transform: translate(-50%, -50%);
+    will-change: transform, opacity;
+    transform: translate3d(-50%, -50%, 0);
+    /* Forcing a new compositor layer */
 }
 
 /* Header — same row layout on every viewport (no mobile-specific overrides) */
