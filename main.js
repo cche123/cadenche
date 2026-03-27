@@ -1,24 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Custom Cursor - Smooth and instant, optimized for rapid movement
-    const cursor = document.getElementById('cursor');
-    let mouseX = 0;
-    let mouseY = 0;
-    let rafId = null;
-
-    function updateCursor() {
-        cursor.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
-        rafId = null;
-    }
-
     document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-        
-        // Use a small delay or direct update if RAF feels laggy, 
-        // but RAF is generally best for avoiding stutter.
-        if (!rafId) {
-            rafId = requestAnimationFrame(updateCursor);
-        }
+        // Direct update for zero-latency tracking
+        cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%)`;
         
         if (cursor.style.opacity !== '1') {
             cursor.style.opacity = '1';
