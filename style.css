@@ -76,7 +76,9 @@ html {
     -webkit-text-size-adjust: 100%;
     hyphens: none;
     -webkit-hyphens: none;
-    overflow-x: hidden;
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
 }
 
 body {
@@ -84,11 +86,11 @@ body {
     background-color: var(--bg-color);
     color: var(--text-color);
     transition: background-color 0.3s ease, color 0.3s ease;
-    min-height: 100vh;
-    min-height: 100dvh;
+    height: 100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
-    overflow-x: auto;
+    overflow: hidden;
     padding: max(40px, env(safe-area-inset-top, 0px)) max(40px, env(safe-area-inset-right, 0px)) max(40px, env(safe-area-inset-bottom, 0px)) max(40px, env(safe-area-inset-left, 0px));
     line-height: 1.6;
     hyphens: none;
@@ -105,21 +107,15 @@ body {
     top: 0;
     left: 0;
     width: 11px;
-    /* Slightly smaller */
     height: 11px;
     background-color: var(--cursor-color);
-    /* Filled */
     border-radius: 50%;
     pointer-events: none;
     z-index: 9999;
     opacity: 0;
-    /* Hidden by default */
-    transition: opacity 0.2s ease;
-    /* Smooth fade in */
+    /* No transition on opacity for more responsive feel when it appears/disappears */
     will-change: transform;
-    /* Optimize for animations */
-    transform: translate3d(0, 0, 0) translate(-50%, -50%);
-    /* Hardware acceleration */
+    transform: translate(-50%, -50%);
 }
 
 /* Header — same row layout on every viewport (no mobile-specific overrides) */
